@@ -8,7 +8,7 @@ import * as S from "./styles";
 
 const Home = () => {
   const [search, setSearch] = useState(null);
-  const [currentCategory, setCurrentCategory] = useState('');
+  const [currentCategory, setCurrentCategory] = useState('foundation');
   const [detailCurrentCategory, setDetailCurrentCategory] = useState([]);
 
   useEffect(() => {
