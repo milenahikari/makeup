@@ -6,7 +6,7 @@ export const Container = styled.SafeAreaView`
 
 export const Header = styled.View`
   width: 100%;
-  height: 220px;
+  height: 240px;
 `;
 
 export const HeaderDetail = styled.View`
@@ -59,7 +59,7 @@ export const WrapperListCategories = styled.View`
   padding-left: 20px;
   padding-right: 20px;
   position: absolute;
-  top: 180px;
+  top: 190px;
 `;
 
 export const ListCategories = styled.FlatList``;
@@ -108,4 +108,39 @@ export const Price = styled.Text`
   font-size: 15px;
   color: #333344;
   flex-direction: row;
+`;
+
+export const WrapperListProductsWithPromotion = styled.View``;
+
+export const ListProductsWithPromotion = styled.FlatList``;
+
+export const CardFeaturedProducts = styled.View`
+  width: 180px;
+  height: 280px;
+  margin: 20px;
+  border-radius: 20px;
+`;
+
+export const FeaturedProductImage = styled.Image`
+  width: 180px;
+  height: 220px;
+  border-radius: 20px;
+
+`;
+
+export const CardFeaturedProductDetail = styled.View`
+  flex: 1;
+  justify-content: space-around;  
+`;
+
+export const FeaturedProductName = styled.Text`
+  font-family: "Roboto_300Light";
+  font-size: 15px;
+  color: #333344;
+`;
+
+export const FeaturedProductPrice = styled.Text`
+  font-family: "Roboto_500Medium";
+  font-size: 15px;
+  color: #333344;
 `;

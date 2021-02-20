@@ -10,12 +10,15 @@ const Home = () => {
   const [search, setSearch] = useState(null);
   const [currentCategory, setCurrentCategory] = useState('foundation');
   const [productsCurrentCategory, setProductsCurrentCategory] = useState([]);
+  const [featuredProductsCurrentCategory, setFeaturedProductsCurrentCategory] = useState([]);
 
   useEffect(() => {
     async function getProductsForCategory() {
-      const response = await api.get(`?product_type=${currentCategory}`);
-      const { data } = response;
-      setProductsCurrentCategory(data);
+      const responseProductsForCategory = await api.get(`?product_type=${currentCategory}`);
+      const responseFeaturedProductsForCategory = await api.get(`?product_type=${currentCategory}&rating_greater_than=4.9`);
+
+      setProductsCurrentCategory(responseProductsForCategory.data);
+      setFeaturedProductsCurrentCategory(responseFeaturedProductsForCategory.data);
     }
     getProductsForCategory();
   }, [currentCategory]);
@@ -63,14 +66,34 @@ const Home = () => {
 
       <S.WrapperListProductsCurrentCategory>
         <S.ListProductsCurrentCategory
-          data={productsCurrentCategory}
+          ListHeaderComponent={
+            <S.WrapperListProductsWithPromotion>
+              <S.ListProductsWithPromotion
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={featuredProductsCurrentCategory}
+                keyExtractor={product => product.id.toString()}
+                renderItem={({ item: product }) => (
+                  <S.CardFeaturedProducts>
+                    <S.FeaturedProductImage source={{ uri: product.image_link }} />
+
+                    <S.CardFeaturedProductDetail>
+                      <S.FeaturedProductName numberOfLines={1}>{product.name}</S.FeaturedProductName>
+                      <S.FeaturedProductPrice>{product.price_sign + product.price}</S.FeaturedProductPrice>
+                    </S.CardFeaturedProductDetail>
+                  </S.CardFeaturedProducts>
+                )}
+              />
+            </S.WrapperListProductsWithPromotion>
+          }
           showsVerticalScrollIndicator={false}
+          data={productsCurrentCategory}
           keyExtractor={product => product.id.toString()}
           renderItem={({ item: product }) => (
             <S.CardProduct>
               <S.ProductImage source={{ uri: product.image_link }} />
               <S.CardProductDetail>
-                <S.ProductName>{product.name}</S.ProductName>
+                <S.ProductName numberOfLines={1}>{product.name}</S.ProductName>
                 <S.Price>{product.price_sign + product.price}</S.Price>
               </S.CardProductDetail>
             </S.CardProduct>
