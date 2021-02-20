@@ -9,13 +9,13 @@ import * as S from "./styles";
 const Home = () => {
   const [search, setSearch] = useState(null);
   const [currentCategory, setCurrentCategory] = useState('foundation');
-  const [detailCurrentCategory, setDetailCurrentCategory] = useState([]);
+  const [productsCurrentCategory, setProductsCurrentCategory] = useState([]);
 
   useEffect(() => {
     async function getProductsForCategory() {
       const response = await api.get(`?product_type=${currentCategory}`);
       const { data } = response;
-      setDetailCurrentCategory(data);
+      setProductsCurrentCategory(data);
     }
     getProductsForCategory();
   }, [currentCategory]);
@@ -63,7 +63,7 @@ const Home = () => {
 
       <S.WrapperListProductsCurrentCategory>
         <S.ListProductsCurrentCategory
-          data={detailCurrentCategory}
+          data={productsCurrentCategory}
           showsVerticalScrollIndicator={false}
           keyExtractor={product => product.id.toString()}
           renderItem={({ item: product }) => (
